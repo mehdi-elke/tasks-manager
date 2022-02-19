@@ -1,4 +1,4 @@
-class Task {
+class PersonalTask {
 
     constructor(id, name, completed){
         this.id = id;
@@ -8,4 +8,4 @@ class Task {
 
 }
 
-module.exports = Task;
+module.exports = PersonalTask;
