@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const Task = require("../model/task")
 const utils = require('../utils/task-schema.js');
 
 const tasks = [
@@ -36,11 +37,8 @@ router.post("/tasks", (request, response) => {
 
     if(error) return response.status(400).send("The name should be at least 3 chars long!")
 
-    const task = {
-        id: tasks.length + 1,
-        name: request.body.name,
-        completed: request.body.completed
-    };
+    const task = new Task(tasks.length + 1, request.body.name, request.body.completed)
+
 
     tasks.push(task);
     response.status(201).send(task);
