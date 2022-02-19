@@ -2,8 +2,8 @@ const PersonalTask = require("../models/personal-task.js")
 const ProfessionalTask = require("../models/professional-task.js")
 
 class TaskFactory {
-
-    constructor(id, name, completed, company){
+    
+    create(id, name, completed, company){
         if(company == null){
             return new PersonalTask(id, name, completed);
         } else {
@@ -12,4 +12,7 @@ class TaskFactory {
     }
 }
 
-module.exports = TaskFactory;
+const taskFactory = new TaskFactory();
+Object.freeze(taskFactory);
+
+module.exports = taskFactory;
