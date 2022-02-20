@@ -137,6 +137,21 @@ describe('Task APIs', () => {
                     });
         });
 
+        it("It should POST a new MySchool task", (done) => {
+            const task = {
+                name: "Task 8",
+                completed: false,
+                company: "MySchool"
+            };
+            chai.request(server)                
+                .post("/api/tasks")
+                .send(task)
+                .end((err, response) => {
+                    response.should.have.status(201);
+                    response.body.should.have.property('task').not.null;
+                done();
+                });
+        });
 
 
         it("It should NOT POST a new task without the name property", (done) => {
