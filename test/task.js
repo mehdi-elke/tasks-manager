@@ -117,7 +117,6 @@ describe('Task APIs', () => {
                     response.body.should.have.property('id').eq(6);
                     response.body.should.have.property('name').eq("Task 6");
                     response.body.should.have.property('completed').eq(false);
-                done();
                 });
 
                 const otherTask = {
