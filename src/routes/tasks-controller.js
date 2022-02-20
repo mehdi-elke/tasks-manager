@@ -37,11 +37,15 @@ router.post("/tasks", (request, response) => {
 
     if(error) return response.status(400).send("The name should be at least 3 chars long!")
 
-    const task = taskFactory.create(tasks.length + 1, request.body.name, request.body.completed, request.body.company);
+    try {
+        const task = taskFactory.create(tasks.length + 1, request.body.name, request.body.completed, request.body.company, request.body.priority, request.body.deadline);
+        tasks.push(task);
+        response.status(201).send(task);
+    } catch (e) {
+        // TODO: implement a better error handling
+        response.status(400).send(e.message);
+    }
 
-
-    tasks.push(task);
-    response.status(201).send(task);
 });
 
 
