@@ -153,6 +153,23 @@ describe('Task APIs', () => {
                 });
         });
 
+        it("It should NOT POST a new task without deadline when it's a high priority task", (done) => {
+            const otherTask = {
+                name: "Task 8",
+                completed: false,
+                company: "MyCompany",
+                priority:1
+            };
+            chai.request(server)                
+                .post("/api/tasks")
+                .send(otherTask)
+                .end((err, response) => {
+                    response.should.have.status(400);
+                    response.text.should.be.eq("The deadline should be filled for high priority task!");
+                done();
+                });
+        });
+
     });
 
 
