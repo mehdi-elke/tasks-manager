@@ -37,7 +37,7 @@ router.post("/tasks", (request, response) => {
 
     if(error) return response.status(400).send("The name should be at least 3 chars long!")
 
-    const task = taskFactory.create(tasks.length + 1, request.body.name, request.body.completed, null);
+    const task = taskFactory.create(tasks.length + 1, request.body.name, request.body.completed, request.body.company);
 
 
     tasks.push(task);

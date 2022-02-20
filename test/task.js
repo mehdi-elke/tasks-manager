@@ -83,6 +83,63 @@ describe('Task APIs', () => {
                 });
         });
 
+        it("It should POST a new professional task", (done) => {
+            const task = {
+                name: "Task 5",
+                completed: false,
+                company: "MyCompany"
+            };
+            chai.request(server)                
+                .post("/api/tasks")
+                .send(task)
+                .end((err, response) => {
+                    response.should.have.status(201);
+                    response.body.should.be.a('object');
+                    response.body.should.have.property('id').eq(5);
+                    response.body.should.have.property('name').eq("Task 5");
+                    response.body.should.have.property('completed').eq(false);
+                done();
+                });
+        });
+
+        it("It should POST a multiple professional task", (done) => {
+            const task = {
+                name: "Task 6",
+                completed: false,
+                company: "MyCompany"
+            };
+            chai.request(server)                
+                .post("/api/tasks")
+                .send(task)
+                .end((err, response) => {
+                    response.should.have.status(201);
+                    response.body.should.be.a('object');
+                    response.body.should.have.property('id').eq(6);
+                    response.body.should.have.property('name').eq("Task 6");
+                    response.body.should.have.property('completed').eq(false);
+                done();
+                });
+
+                const otherTask = {
+                    name: "Task 7",
+                    completed: false,
+                    company: "MyCompany"
+                };
+                chai.request(server)                
+                    .post("/api/tasks")
+                    .send(otherTask)
+                    .end((err, response) => {
+                        response.should.have.status(201);
+                        response.body.should.be.a('object');
+                        response.body.should.have.property('id').eq(7);
+                        response.body.should.have.property('name').eq("Task 7");
+                        response.body.should.have.property('completed').eq(false);
+                    done();
+                    });
+        });
+
+
+
         it("It should NOT POST a new task without the name property", (done) => {
             const task = {
                 completed: false

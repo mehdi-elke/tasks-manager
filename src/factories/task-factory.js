@@ -5,8 +5,10 @@ class TaskFactory {
     
     create(id, name, completed, company){
         if(company == null){
+            console.log("personal")
             return new PersonalTask(id, name, completed);
         } else {
+            console.log("professional")
             return new ProfessionalTask(id, name, completed, company);
         }
     }
