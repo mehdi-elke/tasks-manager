@@ -157,7 +157,6 @@ describe('Task APIs', () => {
             const otherTask = {
                 name: "Task 8",
                 completed: false,
-                company: "MyCompany",
                 priority:1
             };
             chai.request(server)                
