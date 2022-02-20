@@ -1,4 +1,4 @@
-const PersonalTask = require("../models/personal-task.js")
+const PersonalTask = require("./personal-task.js")
 
 class PersonalTaskBuilder {
 

@@ -10,6 +10,4 @@ class MySchoolTask {
 
 }
 
-
-
 module.exports = MySchoolTask;

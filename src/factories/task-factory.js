@@ -1,7 +1,7 @@
-const PersonalTask = require("../models/personal-task.js")
-const PersonalTaskBuilder = require("../models/personal-task-builder.js")
-const ProfessionalTask = require("../models/professional-task.js")
-const MySchoolTask = require("../models/myschool-task.js")
+const PersonalTask = require("../models/tasks/personal-task.js")
+const PersonalTaskBuilder = require("../models/tasks/personal-task-builder.js")
+const ProfessionalTask = require("../models/tasks/professional-task.js")
+const MySchoolTask = require("../models/tasks/myschool-task.js")
 const professionalTaskPrototype = new ProfessionalTask(1, "name", false, "company");
 
 class TaskFactory {
@@ -9,6 +9,7 @@ class TaskFactory {
     
     create(id, name, completed, company, priority, deadline){
         if(company == null){
+            console.log("id" + id)
             return new PersonalTaskBuilder(id, name)
             .addCompleted(completed)
             .addPriority(priority)
