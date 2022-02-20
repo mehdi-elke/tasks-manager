@@ -4,7 +4,7 @@ var usersRouter = express.Router();
 const UserAdapter = require("../models/users/user-adapter.js");
 const GoogleUser = require("../models/users/google-user.js");
 const User = require('../models/users/user.js');
-const userService = require('./user-service-proxy.js')
+const userService = require('./user-service.js')
 
 
 usersRouter.get("/users" , (request, response) => {
