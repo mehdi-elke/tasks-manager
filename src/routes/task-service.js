@@ -1,27 +1,17 @@
 const UserAdapter = require("../models/users/user-adapter.js");
+const taskFactory = require("../factories/task-factory.js");
 const GoogleUser = require("../models/users/google-user.js");
 const User = require('../models/users/user.js');
 
 class TaskService {
 
     constructor(){
-        this.tasks = [{
-            id: 1,
-            name: "Task 1",
-            completed: false
-        },
-        {
-            id: 2,
-            name: "Task 2",
-            completed: false
-        },
-        {
-            id: 3,
-            name: "Task 3",
-            completed: false,
-            assigned: "Jean"
-        }
-        ]
+        this.tasks = [];
+        this.tasks.push(taskFactory.create(1,"Task 1", false, null,null, null, null));
+        this.tasks.push(taskFactory.create(2,"Task 2", false, null,null, null, null));
+        this.tasks.push(taskFactory.create(3,"Task 3", false, null,null, null, "Jean"));
+        this.tasks.push(taskFactory.create(4,"Task 4", true, null,null, null, "Joe"));
+        
     }
 
     findAll(){
@@ -40,6 +30,11 @@ class TaskService {
     remove(task){
         const index = this.tasks.indexOf(task);
         this.tasks.splice(index, 1);
+    }
+    update(task){
+        const index = this.tasks.findIndex(oldTask=>oldTask.id==task.id);
+        this.tasks.splice(index, 1);
+        this.tasks.push(task);
     }
 
     notifyUserDeleted(user){

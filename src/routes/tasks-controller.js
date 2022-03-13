@@ -3,6 +3,7 @@ var router = express.Router();
 const taskFactory = require("../factories/task-factory.js")
 const utils = require('../utils/task-schema.js');
 const taskService = require('./task-service.js');
+const communicationService = require('./communication-service.js');
 const userService = require('./user-service-proxy.js');
 
 
@@ -25,7 +26,7 @@ router.post("/tasks", (request, response) => {
     if(error) return response.status(400).send("The name should be at least 3 chars long!")
 
     try {
-        const task = taskFactory.create(taskService.findAll().length + 1, request.body.name, request.body.completed, request.body.company, request.body.priority, request.body.deadline);
+        const task = taskFactory.create(taskService.findAll().length + 1, request.body.name, request.body.completed, request.body.company, request.body.priority, request.body.deadline, request.body.assigned);
         taskService.add(task);
         response.status(201).send(task);
     } catch (e) {
@@ -53,19 +54,31 @@ router.put("/tasks/:id", (request, response) => {
 
 
 router.patch("/tasks/:id", (request, response) => {
+   
     const taskId = request.params.id;
     const task = taskService.findById(parseInt(taskId));
     if(!task) return response.status(404).send("The task with the provided ID does not exist.");
 
-    const { error } = utils.validateTask(request.body);
 
-    if(error) return response.status(400).send("The name should be at least 3 chars long!")
-
-    task.name = request.body.name;
-
+    if(request.body.name) {
+        task.name = request.body.name;
+        const { error } = utils.validateTask(request.body);
+        if(error) return response.status(400).send("The name should be at least 3 chars long!")
+    }
     if(request.body.completed) {
         task.completed = request.body.completed;
     }
+    
+    if (request.body.assigned){
+        task.assigned = request.body.assigned;
+        if(task.assigned != null){
+            const user = userService.findByName(task.assigned);
+            communicationService.sendCompletedTaskNotification(task, user);
+        }
+    }
+
+    taskService.update(task);
+ 
     response.send(task);
 });
 

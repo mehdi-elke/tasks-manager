@@ -23,11 +23,16 @@ class PersonalTaskBuilder {
         return this;
     }
 
+    addAssigned(assigned){
+        this.assigned = assigned;
+        return this;
+    }
+
     build(){
         if ((this.deadline === null || this.deadline == undefined ) && (this.priority != null || this.priority != undefined)) {
             throw new Error('The deadline should be filled for high priority task!')
         }
-        return new PersonalTask(this.id, this.name, this. completed, this.priority, this.deadline);
+        return new PersonalTask(this.id, this.name, this. completed, this.priority, this.deadline, this.assigned);
     }
 }
 

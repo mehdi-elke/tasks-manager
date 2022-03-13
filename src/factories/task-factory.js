@@ -7,26 +7,29 @@ const professionalTaskPrototype = new ProfessionalTask(1, "name", false, "compan
 class TaskFactory {
     
     
-    create(id, name, completed, company, priority, deadline){
+    create(id, name, completed, company, priority, deadline, assigned){
         if(company == null){
             console.log("id" + id)
             return new PersonalTaskBuilder(id, name)
             .addCompleted(completed)
             .addPriority(priority)
             .addDeadline(deadline)
+            .addAssigned(assigned)
             .build();
+        } else if(company == "MySchool") {
+            return new MySchoolTask(this.createProfessionalTask(id, name, completed, assigned, company));
         } else {
-            var newProfessionalTask = Object.create(professionalTaskPrototype);
-            newProfessionalTask.id = id;
-            newProfessionalTask.name = name;
-            newProfessionalTask.completed = completed;
-            newProfessionalTask.company = company;
-
-            if(company == "MySchool"){
-                return new MySchoolTask(newProfessionalTask);
-            }
-            return newProfessionalTask;
+            return this.createProfessionalTask(id, name, completed, assigned, company);
         }
+    }
+
+    createProfessionalTask(id, name, completed, company){
+        var newProfessionalTask = Object.create(professionalTaskPrototype);
+        newProfessionalTask.id = id;
+        newProfessionalTask.name = name;
+        newProfessionalTask.completed = completed;
+        newProfessionalTask.company = company;
+        return newProfessionalTask;
     }
 }
 

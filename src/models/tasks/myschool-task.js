@@ -8,6 +8,10 @@ class MySchoolTask {
         return "notification sended";
     }
 
+    getId(){
+        return this.task.getId();
+    }
+
 }
 
 module.exports = MySchoolTask;

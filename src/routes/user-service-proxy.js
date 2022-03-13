@@ -42,7 +42,6 @@ class UserServiceProxy {
         return this.findAll().find(user => user.getName() == name || user.name == name);
     }
 
-
     remove(user){
         const index = this.users.indexOf(user);
         this.users.splice(index, 1);

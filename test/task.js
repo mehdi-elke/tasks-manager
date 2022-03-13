@@ -67,27 +67,8 @@ describe('Task APIs', () => {
     describe("POST /api/tasks", () => {
         it("It should POST a new task", (done) => {
             const task = {
-                name: "Task 4",
-                completed: false
-            };
-            chai.request(server)                
-                .post("/api/tasks")
-                .send(task)
-                .end((err, response) => {
-                    response.should.have.status(201);
-                    response.body.should.be.a('object');
-                    response.body.should.have.property('id').eq(4);
-                    response.body.should.have.property('name').eq("Task 4");
-                    response.body.should.have.property('completed').eq(false);
-                done();
-                });
-        });
-
-        it("It should POST a new professional task", (done) => {
-            const task = {
                 name: "Task 5",
-                completed: false,
-                company: "MyCompany"
+                completed: false
             };
             chai.request(server)                
                 .post("/api/tasks")
@@ -102,7 +83,7 @@ describe('Task APIs', () => {
                 });
         });
 
-        it("It should POST a multiple professional task", (done) => {
+        it("It should POST a new professional task", (done) => {
             const task = {
                 name: "Task 6",
                 completed: false,
@@ -117,10 +98,29 @@ describe('Task APIs', () => {
                     response.body.should.have.property('id').eq(6);
                     response.body.should.have.property('name').eq("Task 6");
                     response.body.should.have.property('completed').eq(false);
+                done();
+                });
+        });
+
+        it("It should POST a multiple professional task", (done) => {
+            const task = {
+                name: "Task 7",
+                completed: false,
+                company: "MyCompany"
+            };
+            chai.request(server)                
+                .post("/api/tasks")
+                .send(task)
+                .end((err, response) => {
+                    response.should.have.status(201);
+                    response.body.should.be.a('object');
+                    response.body.should.have.property('id').eq(7);
+                    response.body.should.have.property('name').eq("Task 7");
+                    response.body.should.have.property('completed').eq(false);
                 });
 
                 const otherTask = {
-                    name: "Task 7",
+                    name: "Task 8",
                     completed: false,
                     company: "MyCompany"
                 };
@@ -130,8 +130,8 @@ describe('Task APIs', () => {
                     .end((err, response) => {
                         response.should.have.status(201);
                         response.body.should.be.a('object');
-                        response.body.should.have.property('id').eq(7);
-                        response.body.should.have.property('name').eq("Task 7");
+                        response.body.should.have.property('id').eq(8);
+                        response.body.should.have.property('name').eq("Task 8");
                         response.body.should.have.property('completed').eq(false);
                     done();
                     });
@@ -139,7 +139,7 @@ describe('Task APIs', () => {
 
         it("It should POST a new MySchool task", (done) => {
             const task = {
-                name: "Task 8",
+                name: "Task 9",
                 completed: false,
                 company: "MySchool"
             };
@@ -170,7 +170,7 @@ describe('Task APIs', () => {
 
         it("It should NOT POST a new task without deadline when it's a high priority task", (done) => {
             const otherTask = {
-                name: "Task 8",
+                name: "Task 9",
                 completed: false,
                 priority: 1
             };
