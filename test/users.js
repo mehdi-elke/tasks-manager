@@ -48,6 +48,34 @@ describe('Users APIs', () => {
 
             
         });
+
+        
     });
 
+    describe("Test DELETE route /api/users", () => {
+        it("It should delete Lucie", (done) => {
+            chai.request(server)
+                .get("/api/users/Lucie")
+                .end((err, response) => {
+                    response.should.have.status(200);
+                    response.body.should.have.property('name').eq("Lucie");
+                });
+
+            chai.request(server)
+                .delete("/api/users/Lucie")
+                .end((err, response) => {
+                    response.should.have.status(200);
+                });
+            
+            chai.request(server)
+                .get("/api/users/Lucie")
+                .end((err, response) => {
+                    response.should.have.status(404);
+                    done();
+                });
+        });
+
+
+        
+    });
 });

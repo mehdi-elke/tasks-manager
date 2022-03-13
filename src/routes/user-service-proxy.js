@@ -10,6 +10,8 @@ class UserServiceProxy {
         this.users = [];
     }
 
+
+
     findAll(){
         if(this.users.length == 0){
             console.log("add to cache")
@@ -21,6 +23,16 @@ class UserServiceProxy {
     add(user){
         this.users.push(user);
         userService.add(user);
+    }
+    findByName(name){
+        return this.findAll().find(user => user.getName() == name || user.name == name);
+    }
+
+
+    remove(user){
+        const index = this.users.indexOf(user);
+        this.users.splice(index, 1);
+        userService.remove(user);
     }
 }
 
