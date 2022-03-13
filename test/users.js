@@ -12,6 +12,7 @@ describe('Users APIs', () => {
         it("It should return all users", (done) => {
             chai.request(server)
                 .get("/api/users")
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(200);
                     response.body.should.be.a('array');
@@ -23,6 +24,7 @@ describe('Users APIs', () => {
         it("It should return all users for each call", (done) => {
             chai.request(server)
                 .get("/api/users")
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(200);
                     response.body.should.be.a('array');
@@ -31,6 +33,7 @@ describe('Users APIs', () => {
 
                 chai.request(server)
                 .get("/api/users")
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(200);
                     response.body.should.be.a('array');
@@ -39,6 +42,7 @@ describe('Users APIs', () => {
 
                 chai.request(server)
                 .get("/api/users")
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(200);
                     response.body.should.be.a('array');
@@ -56,6 +60,7 @@ describe('Users APIs', () => {
         it("It should delete Lucie", (done) => {
             chai.request(server)
                 .get("/api/users/Lucie")
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(200);
                     response.body.should.have.property('name').eq("Lucie");
@@ -63,12 +68,14 @@ describe('Users APIs', () => {
 
             chai.request(server)
                 .delete("/api/users/Lucie")
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(200);
                 });
             
             chai.request(server)
                 .get("/api/users/Lucie")
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(404);
                     done();

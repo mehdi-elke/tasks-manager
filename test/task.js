@@ -12,6 +12,7 @@ describe('Task APIs', () => {
         it("It should return all tasks", (done) => {
             chai.request(server)
                 .get("/api/tasks")
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(200);
                     response.body.should.be.a('array');
@@ -23,6 +24,7 @@ describe('Task APIs', () => {
         it("It should NOT return all the tasks", (done) => {
             chai.request(server)
                 .get("/api/task")
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(404);
                 done();
@@ -36,6 +38,7 @@ describe('Task APIs', () => {
             const taskId = 1;
             chai.request(server)                
                 .get("/api/tasks/" + taskId)
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(200);
                     response.body.should.be.a('object');
@@ -51,6 +54,7 @@ describe('Task APIs', () => {
             const taskId = 123;
             chai.request(server)                
                 .get("/api/tasks/" + taskId)
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(404);
                     response.text.should.be.eq("The task with the provided ID does not exist.");
@@ -73,6 +77,7 @@ describe('Task APIs', () => {
             chai.request(server)                
                 .post("/api/tasks")
                 .send(task)
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(201);
                     response.body.should.be.a('object');
@@ -91,6 +96,7 @@ describe('Task APIs', () => {
             };
             chai.request(server)                
                 .post("/api/tasks")
+                .set("x-api-key", "123")
                 .send(task)
                 .end((err, response) => {
                     response.should.have.status(201);
@@ -110,6 +116,7 @@ describe('Task APIs', () => {
             };
             chai.request(server)                
                 .post("/api/tasks")
+                .set("x-api-key", "123")
                 .send(task)
                 .end((err, response) => {
                     response.should.have.status(201);
@@ -126,6 +133,7 @@ describe('Task APIs', () => {
                 };
                 chai.request(server)                
                     .post("/api/tasks")
+                    .set("x-api-key", "123")
                     .send(otherTask)
                     .end((err, response) => {
                         response.should.have.status(201);
@@ -145,6 +153,7 @@ describe('Task APIs', () => {
             };
             chai.request(server)                
                 .post("/api/tasks")
+                .set("x-api-key", "123")
                 .send(task)
                 .end((err, response) => {
                     response.should.have.status(201);
@@ -160,6 +169,7 @@ describe('Task APIs', () => {
             };
             chai.request(server)                
                 .post("/api/tasks")
+                .set("x-api-key", "123")
                 .send(task)
                 .end((err, response) => {
                     response.should.have.status(400);
@@ -176,6 +186,7 @@ describe('Task APIs', () => {
             };
             chai.request(server)                
                 .post("/api/tasks")
+                .set("x-api-key", "123")
                 .send(otherTask)
                 .end((err, response) => {
                     response.should.have.status(400);
@@ -199,6 +210,7 @@ describe('Task APIs', () => {
             };
             chai.request(server)                
                 .put("/api/tasks/" + taskId)
+                .set("x-api-key", "123")
                 .send(task)
                 .end((err, response) => {
                     response.should.have.status(200);
@@ -218,6 +230,7 @@ describe('Task APIs', () => {
             };
             chai.request(server)                
                 .put("/api/tasks/" + taskId)
+                .set("x-api-key", "123")
                 .send(task)
                 .end((err, response) => {
                     response.should.have.status(400);
@@ -236,6 +249,7 @@ describe('Task APIs', () => {
             };
             chai.request(server)                
                 .patch("/api/tasks/" + taskId)
+                .set("x-api-key", "123")
                 .send(task)
                 .end((err, response) => {
                     response.should.have.status(200);
@@ -254,6 +268,7 @@ describe('Task APIs', () => {
             };
             chai.request(server)                
                 .patch("/api/tasks/" + taskId)
+                .set("x-api-key", "123")
                 .send(task)
                 .end((err, response) => {
                     response.should.have.status(400);
@@ -269,6 +284,7 @@ describe('Task APIs', () => {
             const taskId = 1;
             chai.request(server)                
                 .delete("/api/tasks/" + taskId)
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(200);
                 done();
@@ -279,6 +295,7 @@ describe('Task APIs', () => {
             const taskId = 145;
             chai.request(server)                
                 .delete("/api/tasks/" + taskId)
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(404);
                     response.text.should.be.eq("The task with the provided ID does not exist.");
