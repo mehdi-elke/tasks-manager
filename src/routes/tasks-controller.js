@@ -3,7 +3,7 @@ var router = express.Router();
 const taskFactory = require("../factories/task-factory.js")
 const utils = require('../utils/task-schema.js');
 const taskService = require('./task-service.js');
-const communicationService = require('./communication-service.js');
+const communicationService = require('./communications/communication-service.js');
 const userService = require('./user-service-proxy.js');
 
 
