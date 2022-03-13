@@ -12,11 +12,13 @@ describe('Test complex behavior', () => {
         it("It should remove the user name for assigned tasks", (done) => {
             chai.request(server)
                 .delete("/api/users/Jean")
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(200);
                 });
                 chai.request(server)
                 .get("/api/tasks/3")
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.body.should.have.property('assigned').eq(null);
                 done();
@@ -33,6 +35,7 @@ describe('Test complex behavior', () => {
             };
             chai.request(server)                
             .get("/api/communications/Lucie")
+            .set("x-api-key", "123")
             .end((err, response) => {
                 response.should.have.status(200);
                 response.body.should.be.a('array');
@@ -40,6 +43,7 @@ describe('Test complex behavior', () => {
             });
             chai.request(server)                
                 .patch("/api/tasks/" + taskId)
+                .set("x-api-key", "123")
                 .send(task)
                 .end((err, response) => {
                     response.should.have.status(200);
@@ -49,12 +53,46 @@ describe('Test complex behavior', () => {
                 });
                 chai.request(server)                
                 .get("/api/communications/Lucie")
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(200);
                     response.body.should.be.a('array');
                     response.body.length.should.be.eq(1);
                     done();
                 });
+        });
+    });
+
+    describe("Test security connexion", () => {
+        it("It should get task when user is authorized", (done) => {
+            const taskId = 1;
+            chai.request(server)                
+            .get("/api/tasks/1")
+            .set("user", "admin")
+            .end((err, response) => {
+                response.should.have.status(200);
+                done();
+            });
+        });
+        it("It should get task when x-api-key is authorized", (done) => {
+            const taskId = 1;
+            chai.request(server)                
+            .get("/api/tasks/1")
+            .set("x-api-key", "123")
+            .end((err, response) => {
+                response.should.have.status(200);
+                done();
+            });
+        });
+        it("It should receive exception when user or x-api-key not authorized", (done) => {
+            const taskId = 1;
+            chai.request(server)                
+            .get("/api/tasks/1")
+            .set("x-api-key", "invalid_key")
+            .end((err, response) => {
+                response.should.have.status(500);
+                done();
+            });
         });
     });
  

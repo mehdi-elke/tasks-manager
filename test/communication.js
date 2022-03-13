@@ -12,6 +12,7 @@ describe('Users APIs', () => {
         it("It should return all users", (done) => {
             chai.request(server)
                 .get("/api/communications")
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(200);
                     response.body.should.be.a('array');
@@ -23,6 +24,7 @@ describe('Users APIs', () => {
         it("It should return Joe notification", (done) => {
             chai.request(server)
                 .get("/api/communications/Joe")
+                .set("x-api-key", "123")
                 .end((err, response) => {
                     response.should.have.status(200);
                     response.body.should.be.a('array');
