@@ -14,4 +14,22 @@ usersRouter.get("/users" , (request, response) => {
     response.send(users);
 });
 
+usersRouter.get("/users/:name", (request, response) => {
+   
+    const userName = request.params.name;
+    const user = userService.findByName(userName);
+    if(!user) return response.status(404).send("The user does not exist.");
+    response.send(user);
+});
+
+usersRouter.delete("/users/:name", (request, response) => {
+   
+    const userName = request.params.name;
+    const user = userService.findByName(userName);
+    if(!user) return response.status(404).send("The user does not exist.");
+    userService.remove(user);
+    response.send(user);
+});
+
+
 module.exports = usersRouter;

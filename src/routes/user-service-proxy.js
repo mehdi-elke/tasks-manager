@@ -8,7 +8,23 @@ class UserServiceProxy {
 
     constructor(){
         this.users = [];
+        this.listeners = []
     }
+
+    subscribe(eventListener){
+        this.listeners.push(eventListener);
+    }
+
+    unsubscribe(eventListener){
+        const removeIndex = this.listeners.findIndex(list => {
+            return listener === list;
+          });
+      
+          if (removeIndex !== -1) {
+            this.listeners = this.listeners.slice(removeIndex, 1);
+          }
+    }
+
 
     findAll(){
         if(this.users.length == 0){
@@ -21,6 +37,17 @@ class UserServiceProxy {
     add(user){
         this.users.push(user);
         userService.add(user);
+    }
+    findByName(name){
+        return this.findAll().find(user => user.getName() == name || user.name == name);
+    }
+
+
+    remove(user){
+        const index = this.users.indexOf(user);
+        this.users.splice(index, 1);
+        userService.remove(user);
+        this.listeners.forEach(eventListener=>eventListener.notifyUserDeleted(user))
     }
 }
 

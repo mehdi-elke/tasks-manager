@@ -5,7 +5,8 @@ const taskSchema = {
     completed: Joi.boolean(),
     company: Joi.string().allow(null),
     priority: Joi.number().integer().min(1).max(3).allow(null),
-    deadline: Joi.date().allow(null)
+    deadline: Joi.date().allow(null),
+    assigned: Joi.string().allow(null)
 };
 
 exports.validateTask = (task) => Joi.validate(task, taskSchema);
